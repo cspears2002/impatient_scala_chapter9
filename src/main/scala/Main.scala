@@ -12,7 +12,7 @@ import scala.compiletime.ops.double
 
     var path1 = "/Users/christopherspears/Documents/ScalaProjects/impatient_scala_chapter9/src/main/scala/ex2.txt"
     var outputPath1 = "/Users/christopherspears/Documents/ScalaProjects/impatient_scala_chapter9/src/main/scala/ex2_answer.txt"
-    replaceTabs(path1, outputPath1, 1)
+    replaceWhitespace(path1, outputPath1, 1)
 
 
 def msg = "I was compiled by Scala 3. :)"
@@ -26,11 +26,11 @@ def reverseLines(path: String, outputPath: String): Unit =
     out.close()
 
 
-def replaceTabs(path: String, outputPath: String, numSpaces: Int): Unit =
+def replaceWhitespace(path: String, outputPath: String, numSpaces: Int): Unit =
     var source = Source.fromFile(path)
-    val findTabs = """\t+""".r
-    // val spaces = "#" * numSpaces
-    val updatedStr = findTabs.replaceAllIn(source.mkString, "#")
+    val findTabs = """\s+""".r
+    val hashes = "#" * numSpaces
+    val updatedStr = findTabs.replaceAllIn(source.mkString, hashes)
     println(updatedStr)
 
     // val out = PrintWriter(outputPath)
