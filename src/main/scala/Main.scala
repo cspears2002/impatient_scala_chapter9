@@ -31,10 +31,8 @@ def replaceWhitespace(path: String, outputPath: String, numSpaces: Int): Unit =
     val findTabs = """\s+""".r
     val hashes = "#" * numSpaces
     val updatedStr = findTabs.replaceAllIn(source.mkString, hashes)
-    println(updatedStr)
-
-    // val out = PrintWriter(outputPath)
-    // out.println(updatedStr)
-    // out.close()
+    val out = PrintWriter(outputPath)
+    out.println(updatedStr)
+    out.close()
 
 
