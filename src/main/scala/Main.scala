@@ -8,11 +8,14 @@ import scala.compiletime.ops.double
 
     var path = "/Users/christopherspears/Documents/ScalaProjects/impatient_scala_chapter9/src/main/scala/ex1.txt"
     var outputPath = "/Users/christopherspears/Documents/ScalaProjects/impatient_scala_chapter9/src/main/scala/ex1_answer.txt"
-    reverseLines(path, outputPath)
+    // reverseLines(path, outputPath)
 
     var path1 = "/Users/christopherspears/Documents/ScalaProjects/impatient_scala_chapter9/src/main/scala/ex2.txt"
     var outputPath1 = "/Users/christopherspears/Documents/ScalaProjects/impatient_scala_chapter9/src/main/scala/ex2_answer.txt"
-    replaceWhitespace(path1, outputPath1, 1)
+    // replaceWhitespace(path1, outputPath1, 1)
+
+    var path2 = "/Users/christopherspears/Documents/ScalaProjects/impatient_scala_chapter9/src/main/scala/ex3.txt"
+    findTwelveOrMore(path2)
 
 
 def msg = "I was compiled by Scala 3. :)"
@@ -34,5 +37,11 @@ def replaceWhitespace(path: String, outputPath: String, numSpaces: Int): Unit =
     val out = PrintWriter(outputPath)
     out.println(updatedStr)
     out.close()
+
+
+def findTwelveOrMore(path: String): Unit =
+    var source = Source.fromFile(path)
+    val findWhitespace = """\s+""".r
+    val fileArray = findWhitespace.split(source.mkString).filter(_.length >= 12).foreach(println)
 
 
