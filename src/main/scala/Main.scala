@@ -15,7 +15,10 @@ import scala.compiletime.ops.double
     // replaceWhitespace(path1, outputPath1, 1)
 
     var path2 = "/Users/christopherspears/Documents/ScalaProjects/impatient_scala_chapter9/src/main/scala/ex3.txt"
-    findTwelveOrMore(path2)
+    // findTwelveOrMore(path2)
+
+    var path3 = "/Users/christopherspears/Documents/ScalaProjects/impatient_scala_chapter9/src/main/scala/ex4.txt"
+    floatOps(path3)
 
 
 def msg = "I was compiled by Scala 3. :)"
@@ -43,5 +46,15 @@ def findTwelveOrMore(path: String): Unit =
     var source = Source.fromFile(path)
     val findWhitespace = """\s+""".r
     val fileArray = findWhitespace.split(source.mkString).filter(_.length >= 12).foreach(println)
+
+
+def floatOps(path: String): Unit =
+    val source = Source.fromFile(path)
+    val floatsArray = source.getLines.map(_.toFloat).toArray
+    val sum = floatsArray.sum
+    println(sum)
+    println(sum/floatsArray.length)
+    println(floatsArray.min)
+    println(floatsArray.max)
 
 
