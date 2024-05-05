@@ -1,7 +1,1 @@
-hello
-I
-like
-Scala
-verymuchwhatabout
-you
-doyoulikescala as well?
+hello! I like Scala verymuchwhatabout you doyoulikescala as well?
