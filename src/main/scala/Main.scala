@@ -1,4 +1,5 @@
 import java.io.PrintWriter
+import java.nio.file.*
 
 import scala.collection.mutable.ArrayBuffer
 import scala.compiletime.ops.double
@@ -23,7 +24,9 @@ import scala.math.*
     var path3 = "/Users/christopherspears/Documents/ScalaProjects/impatient_scala_chapter9/src/main/scala/ex4.txt"
     // floatOps(path3)
 
-    powersOfTwo()
+    val cwd = System.getProperty("user.dir")
+    val path4 = Paths.get(cwd, "src", "main", "scala", "ex5.txt")
+    powersOfTwo(path4.toString())
 
 
 def msg = "I was compiled by Scala 3. :)"
@@ -63,7 +66,7 @@ def floatOps(path: String): Unit =
     println(floatsArray.max)
 
 
-def powersOfTwo(): Unit =
+def powersOfTwo(filename: String): Unit =
     var powers = ArrayBuffer[Double]()
     var reciprocals = ArrayBuffer[Double]()
 
@@ -74,8 +77,11 @@ def powersOfTwo(): Unit =
     
     val maxLength = powers.last.toString().length()
 
+    val out = PrintWriter(filename)
     for ((p, r) <- (powers zip reciprocals))
-        var powersLength = p.toString().length()
-        var numSpaces = maxLength - powersLength + 1
+        val powersLength = p.toString().length()
+        val numSpaces = maxLength - powersLength + 2
         val newStr = p.toString() + " ".toString() * numSpaces + r.toString()
-        println(newStr)
+        out.println(newStr)
+    println(s"Wrote numbers to $filename")
+    out.close()
