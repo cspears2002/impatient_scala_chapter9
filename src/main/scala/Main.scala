@@ -1,6 +1,9 @@
 import java.io.PrintWriter
-import scala.io.Source
+
+import scala.collection.mutable.ArrayBuffer
 import scala.compiletime.ops.double
+import scala.io.Source
+import scala.math.*
 
 @main def hello(): Unit =
     println("Hello world!")
@@ -18,7 +21,9 @@ import scala.compiletime.ops.double
     // findTwelveOrMore(path2)
 
     var path3 = "/Users/christopherspears/Documents/ScalaProjects/impatient_scala_chapter9/src/main/scala/ex4.txt"
-    floatOps(path3)
+    // floatOps(path3)
+
+    powersOfTwo()
 
 
 def msg = "I was compiled by Scala 3. :)"
@@ -58,3 +63,19 @@ def floatOps(path: String): Unit =
     println(floatsArray.max)
 
 
+def powersOfTwo(): Unit =
+    var powers = ArrayBuffer[Double]()
+    var reciprocals = ArrayBuffer[Double]()
+
+    for idx <- 0 to 20
+    do
+        powers += pow(2, idx)
+        reciprocals += pow(2, -1 * idx)
+    
+    val maxLength = powers.last.toString().length()
+
+    for ((p, r) <- (powers zip reciprocals))
+        var powersLength = p.toString().length()
+        var numSpaces = maxLength - powersLength + 1
+        val newStr = p.toString() + " ".toString() * numSpaces + r.toString()
+        println(newStr)
