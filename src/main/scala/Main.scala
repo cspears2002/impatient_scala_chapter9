@@ -26,7 +26,10 @@ import scala.math.*
 
     val cwd = System.getProperty("user.dir")
     val path4 = Paths.get(cwd, "src", "main", "scala", "ex5.txt")
-    powersOfTwo(path4.toString())
+    // powersOfTwo(path4.toString())
+
+    val path5 = Paths.get(cwd, "src", "main", "scala", "ex6.txt")
+    findQuotes(path5)
 
 
 def msg = "I was compiled by Scala 3. :)"
@@ -85,3 +88,12 @@ def powersOfTwo(filename: String): Unit =
         out.println(newStr)
     println(s"Wrote numbers to $filename")
     out.close()
+
+
+def findQuotes(path: Path): Unit =
+    val source = Source.fromFile(path.toString())
+    var lineArray = source.getLines.toArray
+    val findQuotes = """\".*\"""".r
+    for line <- lineArray do
+        if findQuotes.matches(line) then
+            println(line)
