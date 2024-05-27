@@ -29,7 +29,10 @@ import scala.math.*
     // powersOfTwo(path4.toString())
 
     val path5 = Paths.get(cwd, "src", "main", "scala", "ex6.txt")
-    findQuotes(path5)
+    // findQuotes(path5)
+
+    val path6 = Paths.get(cwd, "src", "main", "scala", "ex7.txt")
+    dontPrintFloats(path6)
 
 
 def msg = "I was compiled by Scala 3. :)"
@@ -92,8 +95,19 @@ def powersOfTwo(filename: String): Unit =
 
 def findQuotes(path: Path): Unit =
     val source = Source.fromFile(path.toString())
-    var lineArray = source.getLines.toArray
+    val lineArray = source.getLines.toArray
     val findQuotes = """\".*\"""".r
     for line <- lineArray do
         if findQuotes.matches(line) then
             println(line)
+
+
+def dontPrintFloats(path: Path): Unit =
+    val source = Source.fromFile(path.toString())
+    val lineArray = source.getLines.toArray
+    val findFloat = """\d+\.\d+""".r
+    for line <- lineArray do
+        val tokens = line.split("\\s+")
+        for token <- tokens do
+            if (!findFloat.matches(token)) then
+                println(token)
