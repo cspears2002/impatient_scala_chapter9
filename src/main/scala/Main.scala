@@ -5,6 +5,7 @@ import scala.collection.mutable.ArrayBuffer
 import scala.compiletime.ops.double
 import scala.io.Source
 import scala.math.*
+import scala.io.BufferedSource
 
 @main def hello(): Unit =
     println("Hello world!")
@@ -32,7 +33,10 @@ import scala.math.*
     // findQuotes(path5)
 
     val path6 = Paths.get(cwd, "src", "main", "scala", "ex7.txt")
-    dontPrintFloats(path6)
+    // dontPrintFloats(path6)
+
+    val src = Source.fromURL("https://horstmann.com/", "UTF-8")
+    findSrcAttrFromWebpage(src)
 
 
 def msg = "I was compiled by Scala 3. :)"
@@ -111,3 +115,12 @@ def dontPrintFloats(path: Path): Unit =
         for token <- tokens do
             if (!findFloat.matches(token)) then
                 println(token)
+
+
+def findSrcAttrFromWebpage(src: BufferedSource): Unit =
+    var lineArray = src.getLines.toArray
+    val findImgSrc = """.*<img\s\.*(src=\'.+\').*/>.*""".r
+    for line <- lineArray do
+        for m <- findImgSrc.findAllMatchIn(line) do
+            println(m.group(1))
+        
