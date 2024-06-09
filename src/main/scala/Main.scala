@@ -119,7 +119,7 @@ def dontPrintFloats(path: Path): Unit =
 
 def findSrcAttrFromWebpage(src: BufferedSource): Unit =
     var lineArray = src.getLines.toArray
-    val findImgSrc = """.*<img\s\.*(src=\'.+\').*/>.*""".r
+    val findImgSrc = """.*<img.*\s(src=.*)\s.*/>.*""".r
     for line <- lineArray do
         for m <- findImgSrc.findAllMatchIn(line) do
             println(m.group(1))
