@@ -36,7 +36,11 @@ import scala.io.BufferedSource
     // dontPrintFloats(path6)
 
     val src = Source.fromURL("https://horstmann.com/", "UTF-8")
-    findSrcAttrFromWebpage(src)
+    // findSrcAttrFromWebpage(src)
+
+    val folderPath = "/Users/christopherspears/Documents/ScalaProjects/impatient_scala_chapter9/project/project/project"
+    val numFiles = countClassFiles(folderPath)
+    println(s"Number of files: $numFiles")
 
 
 def msg = "I was compiled by Scala 3. :)"
@@ -124,3 +128,16 @@ def findSrcAttrFromWebpage(src: BufferedSource): Unit =
         for m <- findImgSrc.findAllMatchIn(line) do
             println(m.group(1))
         
+
+def countClassFiles(folderPath: String): Int = 
+    import scala.jdk.StreamConverters.*
+    var num = 0
+    val entries = Files.walk(Paths.get(folderPath))
+    try
+        for p <- entries.toScala(Iterator) do
+            if p.toString().endsWith(".class") then
+                println(p)
+                num += 1
+    finally
+        entries.close()
+    num
