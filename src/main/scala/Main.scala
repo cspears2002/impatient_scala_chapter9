@@ -7,6 +7,11 @@ import scala.io.Source
 import scala.math.*
 import scala.io.BufferedSource
 
+
+class Person(val name: String) extends Serializable:
+    private val friends = ArrayBuffer[Person]()
+
+
 @main def hello(): Unit =
     println("Hello world!")
     println(msg)
