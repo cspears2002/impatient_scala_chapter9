@@ -6,10 +6,38 @@ import scala.compiletime.ops.double
 import scala.io.Source
 import scala.math.*
 import scala.io.BufferedSource
+import java.io.ObjectOutputStream
+import java.io.FileOutputStream
+import java.io.ObjectInputStream
+import java.io.FileInputStream
 
 
 class Person(val name: String) extends Serializable:
     private val friends = ArrayBuffer[Person]()
+
+    def addFriend(myFriend: Person): Unit =
+        friends.addOne(myFriend)
+
+    def listFriends(): Unit =
+        friends.foreach(friend => println(friend.name))
+
+
+def serializePeople(): Unit =
+    val shaggy = Person("Shaggy")
+    val scooby = Person("Scooby")
+
+    shaggy.addFriend((scooby))
+    shaggy.listFriends()
+
+    val cwd = System.getProperty("user.dir")
+    val serializedFile = List(cwd, "src", "main", "scala", "test.ser").mkString("/")
+    val out = ObjectOutputStream(FileOutputStream(serializedFile))
+    out.writeObject(shaggy)
+    out.close()
+
+    val in = ObjectInputStream(FileInputStream(serializedFile))
+    val savedShaggy = in.readObject().asInstanceOf[Person]
+    savedShaggy.listFriends()
 
 
 @main def hello(): Unit =
@@ -44,8 +72,10 @@ class Person(val name: String) extends Serializable:
     // findSrcAttrFromWebpage(src)
 
     val folderPath = "/Users/christopherspears/Documents/ScalaProjects/impatient_scala_chapter9/project/project/project"
-    val numFiles = countClassFiles(folderPath)
-    println(s"Number of files: $numFiles")
+    // val numFiles = countClassFiles(folderPath)
+    //println(s"Number of files: $numFiles")
+
+    serializePeople()
 
 
 def msg = "I was compiled by Scala 3. :)"
